@@ -7,16 +7,15 @@ from mysql.connector import IntegrityError
 engine = create_engine('mysql+mysqlconnector://root@localhost/db_name')
 connection = engine.connect()
 
-
-
 def main():
     #create_tables()
     #import_default_data()
     sql_stm()
     sqlalchemy_stm()
+    connection.close()
 
 def create_tables():
-    """ Create Tables
+    """ Create Tables User and Group
     """
     metadata = MetaData()
 
@@ -47,11 +46,6 @@ def import_default_data():
     ins = user.insert().values(user_name="Jhon W.", email_address="jhw@demo.com",password="d@2102",group_id=16)
     result = connection.execute(ins)
 
-
-
-
-
-
 def reglection_table_user():
     """Reflection reads database and builds  SQLalchemy Tableobjects
     """
@@ -81,11 +75,6 @@ def sqlalchemy_stm():
     rows = connection.execute(stm).fetchall()
     for row in rows:
         print(row)
-
-
-
-
-
 
 if __name__ == "__main__":
     main()
